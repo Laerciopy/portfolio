@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Portfolio pessoal de Laércio Paiva, com foco em demonstrar meus novos e melhores projetos.">
+    <meta name="author" content="Laércio Paiva">
+    <title>Desenvolvedor Laércio Paiva</title>
+    <link rel="shortcut icon" href="assets/imgs/fav.ico" type="image/x-icon" />
+    <!-- font icons -->
+    <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
+    <!-- Bootstrap + Meyawo main styles -->
+    <link rel="stylesheet" href="assets/css/meyawo.css">
+</head>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+
+    <!-- Page Navbar -->
+    <nav class="custom-navbar" data-spy="affix" data-offset-top="20">
+        <div class="container">
+            <a class="logo" href="#">Laércio Paiva</a>
+            <ul class="nav">
+                <li class="item">
+                    <a class="link" href="#home">Inicio</a>
+                </li>
+                <li class="item">
+                    <a class="link" href="#about">Sobre</a>
+                <li class="item">
+                        <a class="link" href="#API">Uso de Api</a>
+                </li>
+                </li>
+                <li class="item">
+                    <a class="link" href="#blog">Projetos</a>
+                </li>
+                <li class="item">
+                    <a class="link" href="#contact">Contato</a>
+                </li>
+            </ul>
+            <a href="javascript:void(0)" id="nav-toggle" class="hamburger hamburger--elastic">
+                <div class="hamburger-box">
+                    <div class="hamburger-inner"></div>
+                </div>
+            </a>
+        </div>
+    </nav><!-- End of Page Navbar -->
+
+    <!-- page header -->
+    <header id="home" class="header">
+        <div class="overlay"></div>
+        <div class="header-content container">
+            <h1 class="header-title">
+                <span class="up">Olá! <br> Eu sou o<br> Laércio Paiva</span>
+                <span class="down"></span>
+            </h1>
+            <p class="header-subtitle">Desenvolvedor back-end
+
+
+            </p>
+            <p class="header-subtitle">
+                <a href="https://www.linkedin.com/in/olaerciopaiva/" class="link"><i class="ti-linkedin"></i></a>
+                <a href="https://github.com/laerciopy" class="link"><i class="ti-github"></i></a>
+
+            </p>
+            <a class="btn btn-primary" href="#blog">Conheça meus projetos</a>
+        </div>
+    </header><!-- end of page header -->
+
+    <!-- about section -->
+    <section class="section pt-0" id="about">
+        <!-- container -->
+        <div class="container text-center">
+            <!-- about wrapper -->
+            <div class="about">
+                <div class="about-img-holder">
+                    <img src="assets/imgs/perfil.png" class="about-img">
+                </div>
+                <div class="about-caption">
+                    
+                    <h2 class="section-title mb-3">Sobre</h2>
+                    <p>
+                        Sou Laercio Paiva, um jovem desenvolvedor de 23 anos, formando-se em Análise e Desenvolvimento de Sistemas em abril. 
+                        Com um ano de experiência em desenvolvimento back-end, estou atualmente cursando Bacharelado em Engenharia de Software. 
+                        Busco constantemente ampliar meus conhecimentos e habilidades, e pretendo continuar meu caminho com uma pós-graduação em Ciência de Dados. 
+                        Acredito que a combinação de minha formação e experiência me permite fornecer soluções inovadoras e eficientes para os desafios do mundo 
+                        digital. Além disso, estou sempre em busca de novos desafios e oportunidades para expandir meus conhecimentos e habilidades na área de 
+                        tecnologia.
+                    </p>
+                    <a class="btn-rounded btn btn-outline-primary mt-4" href="/assets/Curriculo.pdf" target="iframe_download">Visualizar Currículo</a>
+                </div>
+            </div><!-- end of about wrapper -->
+        </div><!-- end of container -->
+    </section> <!-- end of about section -->
+
+  
+
+    <!-- API DE FILMES -->
+    <section class="section" id="API">
+        <div class="container text-center">
+            <p class="section-subtitle">Testando o uso de uma api de filmes</p>
+            <h6 class="section-title mb-6">Pesquise o nome de um filme</h6>
+            <form action="" class="">
+                <input class="form-control" type="text" name="pesquisa" id="pesquisa" placeholder="Digite o nome do filme em ingles">
+                <br>
+                <button class="btn btn-outline-primary rounded">Pesquisar</button>
+            </form>
+            <br>
+            <div class="lista row"></div>
+    </section>
+    <!-- end  API DE FILMES -->
+    <script>
+
+        const apiKey = 'ccdfa22';
+
+        const frmPesquisa = document.querySelector("form");
+
+        frmPesquisa.onsubmit = (ev) => {
+            ev.preventDefault();
+            
+            const pesquisa = ev.target.pesquisa.value;
+            
+            if (pesquisa == ""){
+                alert ("Preencha o campo de pesquisa");
+                return;
+            }
+           
+            fetch(`https://www.omdbapi.com/?s=${pesquisa}&apikey=${apiKey}`)
+                .then(result => result.json())
+                .then(json => carregaLista(json));
+        }   
+
+            const carregaLista = (json) => {
+                const lista = document.querySelector("div.lista");
+                lista.innerHTML = "";
+
+                
+
+                if (json.Response == 'False'){ //Por que o Response nao e booleano e sim uma string
+                    alert ("Nenhum filme encontrado");
+                    return;
+                }
+
+                json.Search.forEach(element => {
+
+                   let item = document.createElement("div");
+                   item.classList.add("item");
+
+                    item.innerHTML = `<img src="${element.Poster}" />` // <h2>${element.Title}</h2> se eu quiser colocar o nome dos filmes depois.
+
+                    lista.appendChild(item);
+                   
+                });
+
+            }
+
+    </script>
+
+    <!-- section -->
+    <section class="section-sm bg-primary">
+        <!-- container -->
+        <div class="container text-center text-sm-left">
+            <!-- row -->
+            <div class="row align-items-center">
+                <div class="col-sm offset-md-1 mb-4 mb-md-0">
+                    <h6 class="title text-light">Ficou com alguma duvida?</h6>
+                    <p class="m-0 text-light">Sinta-se sempre à vontade para entrar em contato.</p>
+                </div>
+                <div class="col-sm offset-sm-2 offset-md-3">
+                    <a href="#contact"class="btn btn-lg my-font btn-light rounded">Entre em contato</a>
+                
+                </div>
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </section> <!-- end of section -->
+
+    <!-- blog section -->
+    <section class="section" id="blog">
+        <!-- container -->
+        <div class="container text-center">
+            <h6 class="section-title mb-6">Projetos</h6>
+            <!-- blog-wrapper -->
+            <div class="blog-card">
+                <div class="blog-card-header">
+                    <img src="assets/imgs/friendev-painel2.png" class="blog-card-img"
+                        alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">
+                </div>
+                <div class="blog-card-body">
+                    <h5 class="blog-card-title">Friendev</h6>
+
+                        <p class="blog-card-caption">
+                        </p>
+                        <p>Explicando de forma resumida, se trata de uma ferramenta que visa proporcionar o melhor estudo, 
+                            reduzindo o tempo de pesquisas em sites(muitas vezes com informações desnecessárias) com FrienDev, 
+                            você tem o controle do que estuda, do que estudou, e do que vai estudar, fácil simples e objetivo, 
+                            um exemplo... O FrienDev é como se fosse um bebê, você pega ele novo, ensina tudo o que você sabe, 
+                            ele aprende, cresce, e também ensina.</p>
+
+                </div>
+            </div><!-- end of blog wrapper -->
+            <div class="blog-card">
+                <div class="blog-card-header">
+                    <img src="assets/imgs/inventariodomestico.png" class="blog-card-img"
+                        alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">
+                </div>
+                <div class="blog-card-body">
+                    <h5 class="blog-card-title">Inventario Doméstico</h6>
+
+                        <p class="blog-card-caption">
+                        </p>
+                        <p>Explicando de forma resumida, se trata de uma ferramenta que visa ajudar no gerenciamento
+                            de todos os seus bens adquiridos e inseridos na ferramenta, com o inventario domestico consegui treinar e testar
+                            funcionalidades do python para aprender a criar telas e um CRUD bem elaborado com imagens.
+                        </p>
+
+                </div>
+            </div><!-- end of blog wrapper -->
+            <div class="blog-card">
+                <div class="blog-card-header">
+                    <img src="assets/imgs/projetousandoapi.png" class="blog-card-img"
+                        alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">
+                </div>
+                <div class="blog-card-body">
+                    <h5 class="blog-card-title">Estudo usando API de filmes</h6>
+
+                        <p class="blog-card-caption">
+                        </p>
+                        <p> 
+                            O uso de uma API com JavaScript puro é uma ótima maneira de aplicar conhecimentos sobre APIs em testes e estudos.
+                            Uma forma eficiente de aplicar conhecimentos sobre APIs em testes de estudos.
+
+                        </p>
+
+                </div>
+            </div><!-- end of blog wrapper -->
+            <div class="blog-card">
+                <div class="blog-card-header">
+                    <img src="assets/imgs/dashboard-covid.png" class="blog-card-img"
+                        alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, meyawo Landing page">
+                </div>
+                <div class="blog-card-body">
+                    <h5 class="blog-card-title">Análise de dados Covid-19 com API</h6>
+
+                        <p class="blog-card-caption">
+                        </p>
+                        <p>
+                            O programa desenvolvido para estudos na análise de dados com Python é uma plataforma poderosa que fornece informações atualizadas 
+                            sobre o COVID-19 usando uma API. Ele permite uma visão clara e precisa da situação da pandemia, incluindo o número total de casos, 
+                            recuperados, países e continentes mais afetados.
+                            Em resumo, o programa é uma solução eficaz para a análise 
+                            de dados com Python na área do COVID-19.
+
+                        </p>
+
+                </div>
+            </div><!-- end of blog wrapper -->
+
+        </div><!-- end of container -->
+    </section><!-- end of blog section -->
+    
+    <!-- contact section -->
+    <section class="section" id="contact">
+        <div class="container text-center">
+            <h6 class="section-title mb-5">Envio de E-mail Automático</h6>
+            <!-- contact form -->
+            <form action="https://api.staticforms.xyz/submit" method="POST" class="contact-form col-md-10 col-lg-8 m-auto">
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        <input name="name" type="text" size="50" class="form-control" placeholder="Seu Nome" required>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <input name="email" type="email" class="form-control" placeholder="Seu Melhor Email" requried>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <textarea name="message" id="comment" rows="6" class="form-control"
+                            placeholder="Sua Mensagem"></textarea>
+                    </div>
+                    <div class="form-group col-sm-12 mt-3">
+                        <input name="submit" type="submit" value="Enviar" class="btn btn-outline-primary rounded" onclick="alertaEnvioEmail()">
+                        <input type="hidden" name="accessKey" value="66ac660f-5fdc-4bd6-83c9-5242306dce77">
+                        <input type="hidden" name="redirectTo" value="https://www.laerciopaiva.com/">
+                         <!-- If we receive data in this field submission will be ignored -->
+                        <input type="text" name="honeypot" style="display: none;"> <!-- Optional -->
+
+                    </div>
+                </div>
+            </form><!-- end of contact form -->
+        </div><!-- end of container -->
+    </section><!-- end of contact section -->
+    <script>
+        function alertaEnvioEmail()
+        {
+        alert("Muito obrigado pelo contato, retornarei o mais breve possivel!");
+        }
+        </script>
+    <!-- footer -->
+    <div class="container">
+        <footer class="footer">
+            <p class="mb-0">Copyright
+                <script>document.write(new Date().getFullYear())</script> &copy; <a
+                    href="http://www.laerciopaiva.com">Laércio Paiva</a>
+            </p>
+            <div class="social-links text-right m-auto ml-sm-auto">
+                <a href="https://github.com/laerciopy" class="link"><i class="ti-github"></i></a>
+                <a href="https://www.linkedin.com/in/olaerciopaiva/" class="link"><i class="ti-linkedin"></i></a>
+            </div>
+        </footer>
+    </div> <!-- end of page footer -->
+
+    <!-- core  -->
+    <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
+    <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
+
+    <!-- bootstrap 3 affix -->
+    <script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
+
+    <!-- Meyawo js -->
+    <script src="assets/js/meyawo.js"></script>
+
+</body>
+
+</html>
